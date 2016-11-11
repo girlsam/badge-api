@@ -1,4 +1,9 @@
 class AttendeesController < ApplicationController
+  rescue_from Exception, :with => :handle_500
+
+  def handle_500
+    render json: { :error => "Error"}, status: 500
+  end
 
   # Show all attendees
   # GET /attendees
@@ -18,11 +23,7 @@ class AttendeesController < ApplicationController
   # GET attendees/new
   def new
     @attendee = Attendees.new
-    render json: @attendees
-  end
-
-  # GET attendee/:id/edit
-  def edit
+    render json: @attendee
   end
 
   # POST /attendees
@@ -31,24 +32,35 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       if @attendee.save
-        msg = {:status => "ok", :message => "Success!" }
-        format.json { render :json => msg }
+        format.json { render json: msg, :status => 201 }
       else
         format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  private
-
-  def set_attendee
+  # PATCH/PUT /attendees/:id
+  def update
     @attendee = Attendees.find(params[:id])
+    @attendee.update_attributes(attendee_params)
+    format.json { render json: msg, status => 204 }
   end
+
+  # DELETE /attendees/:id
+  def destroy
+    @attendee = Attendees.find(params[:id])
+    @attendee.destroy
+    format.json { render json: msg, :status => 204 }
+  end
+
+  private
 
   # only allow these parameters through
   def attendee_params
-    params.require(:attendee).permit(:first_name, :last_name, :DOB, :image, :organization, :title)
-
+    params.permit(:first_name, :last_name, :DOB, :image, :organization, :title)
   end
+
+  # global msg variable
+  msg = {:status => "OK", :message => 'Success!' }
 
 end
