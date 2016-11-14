@@ -1,9 +1,9 @@
 require 'faker'
 
-Attendee.destroy_all
-Assignment.destroy_all
+Attendees.destroy_all
+Assignments.destroy_all
 
-attendee1 = Attendee.create!(
+attendee1 = Attendees.create!(
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   image: Faker::Placeholdit.image("50x50"),
@@ -12,7 +12,7 @@ attendee1 = Attendee.create!(
   title: Faker::Name.title
 )
 
-assignment1 = Assignment.create!(
+assignment1 = Assignments.create!(
   zone_a: Faker::Boolean.boolean,
   zone_b: Faker::Boolean.boolean,
   zone_c: Faker::Boolean.boolean,
@@ -21,7 +21,7 @@ assignment1 = Assignment.create!(
   zone_2: Faker::Boolean.boolean
 )
 
-attendee2 = Attendee.create!(
+attendee2 = Attendees.create!(
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   image: Faker::Placeholdit.image("50x50"),
@@ -30,7 +30,7 @@ attendee2 = Attendee.create!(
   title: Faker::Name.title
 )
 
-assignment2 = Assignment.create!(
+assignment2 = Assignments.create!(
   zone_a: Faker::Boolean.boolean,
   zone_b: Faker::Boolean.boolean,
   zone_c: Faker::Boolean.boolean,
